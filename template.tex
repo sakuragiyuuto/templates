@@ -1,0 +1,161 @@
+\documentclass[10pt,a4paper]{ltjsarticle}       % LuaTeX を使う
+
+\usepackage{amsmath,amssymb,amsfonts}           % 高度な数式用
+\usepackage{bm}                                 % 斜体太字ベクトル
+\usepackage{txfonts}                            % Times を TeX 用にしたフォント
+\usepackage{here}                               % 図表の位置を強制して出力
+\usepackage{afterpage}                          % 残っている図を貼り付ける（\afterpage{\clearpage}）
+\usepackage{setspace}                           % 行間制御
+\usepackage{ulem}                               % 下線や取り消し線など
+\usepackage{url}                                % URL
+\usepackage{booktabs}                           % きれいな表（\toprule \midrule \bottomrule）
+\usepackage[luatex,draft]{graphicx}             % LuaTeX 用, draft がついているときは図の代わりに同じ大きさの枠ができる
+\usepackage{multirow}                           % 表で行結合
+\usepackage{multicol}                           % 表で列結合
+\usepackage{hhline}                             % 表で 2 重線
+\usepackage{framed}                             % 文章を囲むとき用
+\usepackage{xcolor}                             % カラー用，[table] を付けると table の背景をカラーに
+\usepackage[version=3]{mhchem}                  % 化学式
+\usepackage{siunitx}                            % 単位
+\usepackage{comment}                            % コメント用
+\setcounter{tocdepth}{3}                        % 目次に subsubsection まで表示
+
+% ヘッダ・フッタを自由に設定
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{}                                 % 左ヘッダ
+\chead{}                                 % 中央ヘッダ
+\rhead{}                                 % 右ヘッダ
+\lfoot{}                                 % 左フッタ
+\cfoot{\thepage~/~\pageref{LastPage}}    % 中央フッタ
+\rfoot{}                                 % 右フッタ
+\renewcommand{\headrulewidth}{0pt}       % ヘッダの罫線を消す
+
+% \usepackage[left=19.05mm,right=19.05mm,top=25.40mm,bottom=25.40mm]{geometry}     % 余白
+
+% PDF ハイパーリンク，ブックマーク用
+% オプションは https://texwiki.texjp.org/?hyperref 参照
+\usepackage[luatex,unicode=true,hidelinks,bookmarksnumbered=true,bookmarksdepth=subsubsection]{hyperref}
+
+% ソースコード用
+% \usepackage{listings}
+% \lstset{
+%   basicstyle=\ttfamily\footnotesize,
+%   frame=single,
+%   numbers=left,                                   %行番号を左に書く．消す場合はnone．
+%   stepnumber=1,                                   %行番号を1から始める場合こうする．
+%   numbersep=1zw,                                  %行番号と本文の間隔．
+%   breaklines=true,                                %1行が長いときの改行．
+% }
+
+% フォント調整
+% https://ja.osdn.net/projects/luatex-ja/wiki/LuaTeX-ja%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9
+% https://tex.stackexchange.com/questions/25249/how-do-i-use-a-particular-font-for-a-small-section-of-text-in-my-document
+% \newfontfamily{\ttconsolas}{Consolas}
+% \usepackage{fontspec}
+% \usepackage[⟨options⟩]{luatexja-fontspec}
+\usepackage{luatexja-fontspec}
+% \newfontfamily\fontConsolas{Consolas}
+
+% % \figuretrue をコメントにすればコンパイル時に図をとばす
+% % 図を貼るときは
+% % \iffigure
+% % 図を貼り付け
+% % \fi
+% % とする
+% % http://blog.livedoor.jp/tmako123-programming/archives/42210596.html
+% \newif\iffigure
+% \figurefalse
+% \figuretrue
+
+% 表示文字列を"図"や"表"に
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+
+% 図番号等を"<節番号>.<図番号>" へ
+\renewcommand*{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand*{\thetable}{\thesection.\arabic{table}}
+\renewcommand*{\theequation}{\thesection.\arabic{equation}}
+
+% http://d.hatena.ne.jp/gp98/20090919/1253367749
+\makeatletter    % プリアンブルで定義開始
+
+% 節が進むごとに図番号をリセットする
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+\@addtoreset{equation}{section}
+
+\makeatother    % プリアンブルで定義終了
+
+% \ref{} の簡単化
+\newcommand*{\refSec}[1]{\ref{#1}~章}           % n 章
+\newcommand*{\refSsec}[1]{\ref{#1}~節}          % m.n 節
+\newcommand*{\refSssec}[1]{\ref{#1}~項}         % l.m.n 項
+\newcommand*{\refFig}[1]{\figurename~\ref{#1}}  % 図 n
+\newcommand*{\refTab}[1]{\tablename~\ref{#1}}   % 表 n
+\newcommand*{\refEq}[1]{式(\ref{#1})}           % 式(n)
+
+% 数式中便利な定義
+% https://www.library.osaka-u.ac.jp/doc/TA_LaTeX2.pdf
+% https://en.wikibooks.org/wiki/LaTeX/Mathematics など
+% \newcommand{\d}{\mathrm{d}}                     % 微分や積分で使う数
+% \newcommand{\e}{\mathrm{e}}                     % ネイピア数
+\newcommand{\imagi}{\mathrm{i}}                 % 虚数単位（i）
+\newcommand{\imagj}{\mathrm{j}}                 % 虚数単位（j）
+\newcommand{\vDel}{\varDelta}                   % デルタ大文字
+\newcommand{\veps}{\varepsilon}                 % イプシロン小文字
+\newcommand*{\paren}[1]{\left( #1 \right)}      % () を中身の大きさに合わせる
+\newcommand*{\curly}[1]{\left\{ #1 \right\}}    % {} を中身の大きさに合わせる
+\newcommand*{\bracket}[1]{\left( #1 \right)}    % [] を中身の大きさに合わせる
+\renewcommand{\Re}{\operatorname{Re}}           % 実部
+\renewcommand{\Im}{\operatorname{Im}}           % 虚部
+\newcommand*\sfrac[2]{{}^{#1}\!/_{#2}}          % xfrac の \sfrac{}{} の代わり
+
+\renewcommand{\abstractname}{概要}    % アブストラクトを概要と表示
+
+% タイトル
+\title{Lua\TeX テンプレート}
+\author{もくもく}
+\date{\today}
+
+% -----プリアンブルここまで-----
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\begin{abstract}
+Wikipedia is a free online encyclopedia with the aim to allow anyone to edit articles. Wikipedia is the largest and most popular general reference work on the Internet and is ranked among the ten most popular websites. Wikipedia is owned by the nonprofit Wikimedia Foundation.
+\end{abstract}
+
+\tableofcontents
+\clearpage
+
+\section{大見出し \label{Sec:1}}
+吾輩わがはいは猫である．名前はまだ無い．
+
+どこで生れたかとんと見当けんとうがつかぬ．何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している．吾輩はここで始めて人間というものを見た．しかもあとで聞くとそれは書生という人間中で一番獰悪どうあくな種族であったそうだ．この書生というのは時々我々を捕つかまえて煮にて食うという話である．しかしその当時は何という考もなかったから別段恐しいとも思わなかった．ただ彼の掌てのひらに載せられてスーと持ち上げられた時何だかフワフワした感じがあったばかりである．掌の上で少し落ちついて書生の顔を見たのがいわゆる人間というものの見始みはじめであろう．この時妙なものだと思った感じが今でも残っている．第一毛をもって装飾されべきはずの顔がつるつるしてまるで薬缶やかんだ．その後ご猫にもだいぶ逢あったがこんな片輪かたわには一度も出会でくわした事がない．のみならず顔の真中があまりに突起している．そうしてその穴の中から時々ぷうぷうと煙けむりを吹く．どうも咽むせぽくて実に弱った．
+
+\subsection{小見出し \label{Ssec:1}}
+これが人間の飲む煙草たばこというものである事はようやくこの頃知った．この書生の掌の裏うちでしばらくはよい心持に坐っておったが，しばらくすると非常な速力で運転し始めた．書生が動くのか自分だけが動くのか分らないが無暗むやみに眼が廻る．
+
+\subsubsection{小小見出し \label{Sssec:1}}
+胸が悪くなる．到底とうてい助からないと思っていると，どさりと音がして眼から火が出た．それまでは記憶しているがあとは何の事やらいくら考え出そうとしても分らない．
+
+\subsubsection{参照}
+◯◯は \refSec{Sec:1} \refSsec{Ssec:1} \refSssec{Sssec:1}など．
+\begin{equation}
+  I_{\mathrm{is}} = \dfrac{\sqrt{3}}{4} \, en_{e} S \left( \dfrac{kT_{e}}{m_{i}} \right)^{\sfrac{1}{2}}
+\end{equation}
+\begin{equation}
+  \sfrac{1}{2}
+\end{equation}
+\begin{equation}
+  \curly{\dfrac{1}{2}}
+\end{equation}
+\begin{equation}
+  \bracket{\dfrac{\veps}{\vDel x}}
+\end{equation}
+
+\end{document}
