@@ -1,6 +1,7 @@
 \documentclass[10pt,a4paper]{ltjsarticle}       % LuaTeX を使う
 
 \usepackage{amsmath,amssymb}                    % 高度な数式用
+\usepackage{mathrsfs}                           % きれいな数式用の文字
 \usepackage{bm}                                 % 斜体太字ベクトル
 \usepackage{txfonts}                            % Times を TeX 用にしたフォント
 \usepackage{here}                               % 図表の位置を強制して出力
@@ -59,7 +60,7 @@
 %   breaklines=true,                                %1行が長いときの改行．
 % }
 
-% フォント調整
+% フォント
 % https://ja.osdn.net/projects/luatex-ja/wiki/LuaTeX-ja%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9
 \usepackage[no-math]{fontspec}
 \usepackage{luatexja-fontspec}
@@ -123,7 +124,7 @@
 \thispagestyle{fancy}
 
 \begin{abstract}
-Wikipedia is a free online encyclopedia with the aim to allow anyone to edit articles. Wikipedia is the largest and most popular general reference work on the Internet and is ranked among the ten most popular websites. Wikipedia is owned by the nonprofit Wikimedia Foundation.
+aaaaaaaaaaaaaa aaaaaaaaaa aaaaaaaa a aaaaaaaaaa aaaaaaa aaaaaaaaa aaaaaaaa.
 \end{abstract}
 
 \tableofcontents
@@ -139,7 +140,7 @@ Wikipedia is a free online encyclopedia with the aim to allow anyone to edit art
 ううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううう
 
 \subsubsection{参照}
-◯◯は \refSec{Sec:1} \refSsec{Ssec:1} \refSssec{Sssec:1}など．
+◯◯は \refSec{Sec:1} \refSsec{Ssec:1} \refSssec{Sssec:1}など~\cite{hoge}．
 \begin{equation} \label{Eq:1}
   I_{\mathrm{is}} = \dfrac{\sqrt{3}}{4} \, en_{e} S \paren{\dfrac{kT_{e}}{m_{i}}}^{\sfrac{1}{2}}
 \end{equation}
@@ -158,5 +159,8 @@ Wikipedia is a free online encyclopedia with the aim to allow anyone to edit art
 \begin{equation}
   \vec{a} = \vec{b} + \vec{c}
 \end{equation}
+
+\bibliographystyle{junsrt}
+\bibliography{reference}
 
 \end{document}
