@@ -1,12 +1,9 @@
 \documentclass[10pt,a4paper]{ltjsarticle}       % LuaTeX を使う
 
-\usepackage{amsmath,amssymb}                    % 高度な数式用
-\usepackage{mathrsfs}                           % きれいな数式用の文字
 \usepackage{bm}                                 % 斜体太字ベクトル
-\usepackage{txfonts}                            % Times を TeX 用にしたフォント
 \usepackage{here}                               % 図表の位置を強制して出力
 \usepackage{afterpage}                          % 残っている図を貼り付ける（\afterpage{\clearpage}）
-\usepackage[subrefformat=parens]{subcaption}    % サブキャプション（図1a とか）
+\usepackage[subrefformat=parens]{subcaption}    % サブキャプション（図1(a) とか）
 \usepackage{setspace}                           % 行間制御
 \usepackage{ulem}                               % 下線や取り消し線など
 \usepackage{booktabs}                           % きれいな表（\toprule \midrule \bottomrule）
@@ -22,7 +19,7 @@
 \usepackage{comment}                            % コメント
 \setcounter{tocdepth}{3}                        % 目次に subsubsection まで表示
 
-% ヘッダ・フッタを自由に設定
+% -----ヘッダ・フッタの設定-----
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 \pagestyle{fancy}
@@ -34,9 +31,37 @@
 \rfoot{}                                 % 右フッタ
 \renewcommand{\headrulewidth}{0pt}       % ヘッダの罫線を消す
 
-% \usepackage[left=19.05truemm,right=19.05truemm,top=25.40truemm,bottom=25.40truemm]{geometry}     % 余白
+% -----余白の設定-----
+% これをアンコメントするとページ番号が中央からずれるから今は使わない．
+% \usepackage[left=19.05mm,right=19.05mm,top=25.40mm,bottom=25.40mm]{geometry}
 
-% PDF ハイパーリンク，ブックマーク，URL 用
+% -----フォントの設定-----
+% https://ja.osdn.net/projects/luatex-ja/wiki/LuaTeX-ja%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9
+% http://myfuturesightforpast.blogspot.jp/2013/12/tex-gyre.html など
+\usepackage[no-math]{fontspec}
+\usepackage{amsmath,amssymb}    % 高度な数式用
+\usepackage{mathrsfs}           % 花文字用
+% times ベース -> txfonts
+% palatino ベース -> pxfonts
+\usepackage{pxfonts}
+% Avant Garde -> TeX Gyre Adventor
+% Bookman Old Style -> TeX Gyre Bonum
+% Zapf Chancery -> TeX Gyre Chorus
+% Courier -> TeX Gyre Cursor
+% Helvetica -> TeX Gyre Heros
+% Helvetica Narrow -> TeX Gyre Heros Cn
+% Palatino -> TeX Gyre Pagella
+% New Century Schoolbook -> TeX Gyre Schola
+% Times -> TeX Gyre Termes
+\setmainfont[Ligatures=TeX]{TeXGyrePagella}
+\setsansfont[Ligatures=TeX]{TeXGyrePagella}
+\setmonofont[Scale=MatchLowercase]{TeXGyreCursor}
+\usepackage[match,deluxe,expert,bold]{luatexja-fontspec}
+\setmainjfont[BoldFont=IPAexGothic]{IPAexMincho}
+\setsansjfont{IPAexGothic}
+\usepackage{luatexja-otf}
+
+% -----PDF ハイパーリンク，ブックマーク，URL の設定-----
 % オプション（\hypersetup{}）は https://texwiki.texjp.org/?hyperref 参照
 \usepackage{hyperref}
 \hypersetup{%
@@ -49,52 +74,56 @@
   setpagesize=false}
 \usepackage{url}
 
-% ソースコード用
-% \usepackage{listings}
-% \lstset{
-%   basicstyle=\ttfamily\footnotesize,
-%   frame=single,
-%   numbers=left,                                   %行番号を左に書く．消す場合はnone．
-%   stepnumber=1,                                   %行番号を1から始める場合こうする．
-%   numbersep=1zw,                                  %行番号と本文の間隔．
-%   breaklines=true,                                %1行が長いときの改行．
-% }
+% -----ソースコードの設定-----
+% オプション（\lstset{}）は http://tug.ctan.org/tex-archive/macros/latex/contrib/listings/listings.pdf 参照
+% 使うときは
+% \begin{lstlisting}[language=aaaa,caption=bbbb,label=List:cccc]
+% hogehoge
+% \end{lstlisting}
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\small,
+  frame=single,
+  frameround=ffff,
+  numbers=left,
+  stepnumber=1,
+  numbersep=1\zw,
+  breaklines=true,
+  tabsize=4,
+  captionpos=t,
+  commentstyle=\itshape
+}
 
-% フォント
-% https://ja.osdn.net/projects/luatex-ja/wiki/LuaTeX-ja%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9
-\usepackage[no-math]{fontspec}
-\usepackage[match,deluxe,expert,bold]{luatexja-fontspec}
-\setmainfont[Ligatures=TeX]{TeXGyreTermes}
-\setsansfont[Ligatures=TeX]{TeXGyreHeros}
-\setmainjfont[BoldFont=IPAexGothic]{IPAexMincho}
-\setsansjfont{IPAexGothic}
-
-% 表示文字列を"図"や"表"に
+% -----図表等の reference の設定-----
+% 表示文字列を日本語化
 \renewcommand{\figurename}{図}
 \renewcommand{\tablename}{表}
-
-% 図番号等を"<節番号>.<図番号>" へ
-\renewcommand*{\thefigure}{\thesection.\arabic{figure}}
-\renewcommand*{\thetable}{\thesection.\arabic{table}}
-\renewcommand*{\theequation}{\thesection.\arabic{equation}}
-
-% 節が進むごとに図番号等をリセットする
-% http://d.hatena.ne.jp/gp98/20090919/1253367749
+\renewcommand{\lstlistingname}{リスト}
+\renewcommand{\abstractname}{概要}
+% 図番号等を"<章番号>.<図番号>"
+% lstlisting に関しては https://tex.stackexchange.com/questions/134418/numbering-of-listings 参照
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\AtBeginDocument{\renewcommand{\thelstlisting}{\thesection.\arabic{lstlisting}}}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+% 節が進むごとに図番号等をリセット
+% http://d.hatena.ne.jp/gp98/20090919/1253367749 参照
 \makeatletter
 \@addtoreset{figure}{section}
 \@addtoreset{table}{section}
+\@addtoreset{lstlisting}{section}
 \@addtoreset{equation}{section}
 \makeatother
-
 % \ref{} の簡単化
-\newcommand*{\refSec}[1]{\ref{#1}~章}           % n 章
-\newcommand*{\refSsec}[1]{\ref{#1}~節}          % m.n 節
-\newcommand*{\refSssec}[1]{\ref{#1}~項}         % l.m.n 項
-\newcommand*{\refFig}[1]{\figurename~\ref{#1}}  % 図 n
-\newcommand*{\refTab}[1]{\tablename~\ref{#1}}   % 表 n
-\newcommand*{\refEq}[1]{式(\ref{#1})}           % 式(n)
+\newcommand*{\refSec}[1]{\ref{#1}~章}
+\newcommand*{\refSsec}[1]{\ref{#1}~節}
+\newcommand*{\refSssec}[1]{\ref{#1}~項}
+\newcommand*{\refFig}[1]{\figurename~\ref{#1}}
+\newcommand*{\refTab}[1]{\tablename~\ref{#1}}
+\newcommand*{\refList}[1]{\lstlistingname~\ref{#1}}
+\newcommand*{\refEq}[1]{式(\ref{#1})}
 
-% 数式中便利な定義
+% -----数式中便利な定義-----
 % https://www.library.osaka-u.ac.jp/doc/TA_LaTeX2.pdf
 % https://en.wikibooks.org/wiki/LaTeX/Mathematics など
 \newcommand{\e}{\mathrm{e}}                     % ネイピア数
@@ -107,13 +136,11 @@
 \newcommand*{\bracket}[1]{\left[ #1 \right]}    % [] を中身の大きさに合わせる
 \renewcommand{\Re}{\operatorname{Re}}           % 実部
 \renewcommand{\Im}{\operatorname{Im}}           % 虚部
-\newcommand*\sfrac[2]{{}^{#1}\!/_{#2}}          % xfrac の \sfrac{}{} の代わり
-\renewcommand*\vec[1]{\mathbf{#1}}              % 矢印ベクトルは使わないので上書き
+\newcommand*\sfrac[2]{{}^{#1}\!/_{#2}}          % xfrac パッケージの \sfrac{}{} の代わり
+\renewcommand*\vec[1]{\mathbf{#1}}              % 矢印ベクトルは使わないので上書き．太字立体．
 
-\renewcommand{\abstractname}{概要}              % アブストラクトを概要と表示
-
-% タイトル
-\title{Lua\TeX テンプレート}
+% -----タイトル-----
+\title{Lua\LaTeX テンプレート}
 \author{もくもく}
 \date{\today}
 
@@ -123,42 +150,7 @@
 \maketitle
 \thispagestyle{fancy}
 
-\begin{abstract}
-aaaaaaaaaaaaaa aaaaaaaaaa aaaaaaaa a aaaaaaaaaa aaaaaaa aaaaaaaaa aaaaaaaa.
-\end{abstract}
-
-\tableofcontents
-\clearpage
-
-\section{Section セクション 1} \label{Sec:1}
-あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
-
-\subsection{Subsection サブセクション 1.1} \label{Ssec:1}
-いいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
-
-\subsubsection{Subsubsection サブサブセクション 1.1.1} \label{Sssec:1}
-ううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううう
-
-\subsubsection{参照}
-◯◯は \refSec{Sec:1} \refSsec{Ssec:1} \refSssec{Sssec:1}など~\cite{hoge}．
-\begin{equation} \label{Eq:1}
-  I_{\mathrm{is}} = \dfrac{\sqrt{3}}{4} \, en_{e} S \paren{\dfrac{kT_{e}}{m_{i}}}^{\sfrac{1}{2}}
-\end{equation}
-\begin{equation}
-  \sfrac{1}{2}
-\end{equation}
-\begin{equation}
-  \curly{\dfrac{1}{2}}
-\end{equation}
-
-\section{あいうえお}
-\refEq{Eq:1}より
-\begin{equation}
-  \bracket{\dfrac{\veps}{\vDel x}}
-\end{equation}
-\begin{equation}
-  \vec{a} = \vec{b} + \vec{c}
-\end{equation}
+hogehoge
 
 \bibliographystyle{junsrt}
 \bibliography{reference}
