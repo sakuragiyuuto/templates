@@ -1,19 +1,18 @@
 \documentclass[10pt,a4paper]{ltjsarticle}       % LuaTeX を使う
 
-\usepackage{bm}                                 % 斜体太字ベクトル
+\usepackage[luatex,draft]{graphicx}             % LuaTeX 用, draft がついているときは図の代わりに同じ大きさの枠ができる
 \usepackage{here}                               % 図表の位置を強制して出力
 \usepackage{afterpage}                          % 残っている図を貼り付ける（\afterpage{\clearpage}）
 \usepackage[subrefformat=parens]{subcaption}    % サブキャプション（図1(a) とか）
 \usepackage{setspace}                           % 行間制御
 \usepackage{ulem}                               % 下線や取り消し線など
 \usepackage{booktabs}                           % きれいな表（\toprule \midrule \bottomrule）
-\usepackage[luatex,draft]{graphicx}             % LuaTeX 用, draft がついているときは図の代わりに同じ大きさの枠ができる
 \usepackage{multirow}                           % 表で行結合
 \usepackage{multicol}                           % 表で列結合
 \usepackage{hhline}                             % 表で 2 重線
+\usepackage[table]{xcolor}                      % カラー
 \usepackage{tikz}                               % 図描画用
 \usepackage[framemethod=tikz]{mdframed}         % 文章を囲むとき用
-\usepackage[table]{xcolor}                      % カラー
 \usepackage[version=3]{mhchem}                  % 化学式
 \usepackage{siunitx}                            % 単位
 \usepackage{comment}                            % コメント
@@ -38,12 +37,8 @@
 % -----フォントの設定-----
 % https://ja.osdn.net/projects/luatex-ja/wiki/LuaTeX-ja%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9
 % http://myfuturesightforpast.blogspot.jp/2013/12/tex-gyre.html など
+% 欧文
 \usepackage[no-math]{fontspec}
-\usepackage{amsmath,amssymb}    % 高度な数式用
-\usepackage{mathrsfs}           % 花文字用
-% times ベース -> txfonts
-% palatino ベース -> pxfonts
-\usepackage{txfonts}
 % Avant Garde -> TeX Gyre Adventor
 % Bookman Old Style -> TeX Gyre Bonum
 % Zapf Chancery -> TeX Gyre Chorus
@@ -56,10 +51,19 @@
 \setmainfont[Ligatures=TeX]{TeXGyreTermes}
 \setsansfont[Ligatures=TeX]{TeXGyreHeros}
 \setmonofont[Scale=MatchLowercase]{TeXGyreCursor}
+% 日本語
 \usepackage[match,deluxe,expert,bold]{luatexja-fontspec}
 \setmainjfont[BoldFont=IPAexGothic]{IPAexMincho}
 \setsansjfont{IPAexGothic}
 \usepackage{luatexja-otf}
+% 数式
+\usepackage{amsmath}    % 高度な数式用
+% times ベース -> txfonts
+% palatino ベース -> pxfonts
+% ToDo: newtxmath などに乗り換える
+\usepackage{txfonts}
+\usepackage{mathrsfs}   % 花文字用
+\usepackage{bm}         % 斜体太字ベクトル
 
 % -----PDF ハイパーリンク，ブックマーク，URL の設定-----
 % オプション（\hypersetup{}）は https://texwiki.texjp.org/?hyperref 参照
@@ -94,6 +98,7 @@
   commentstyle=\itshape}
 
 % -----図表等の reference の設定-----
+\usepackage[nomsgs]{refcheck}    % ラベルを表示
 % 表示文字列を日本語化
 \renewcommand{\figurename}{図}
 \renewcommand{\tablename}{表}
