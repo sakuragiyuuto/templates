@@ -18,6 +18,10 @@
 \usepackage{comment}                            % コメント
 \setcounter{tocdepth}{3}                        % 目次に subsubsection まで表示
 
+% -----余白の設定-----
+% geometry と fancyhdr の順番は http://d.hatena.ne.jp/pureodio/20110212/1297475110 参照
+\usepackage[left=19.05truemm,right=19.05truemm,top=25.40truemm,bottom=25.40truemm]{geometry}
+
 % -----ヘッダ・フッタの設定-----
 \usepackage{fancyhdr}
 \usepackage{lastpage}
@@ -29,10 +33,6 @@
 \cfoot{\thepage~/~\pageref{LastPage}}    % 中央フッタ
 \rfoot{}                                 % 右フッタ
 \renewcommand{\headrulewidth}{0pt}       % ヘッダの罫線を消す
-
-% -----余白の設定-----
-% これをアンコメントするとページ番号が中央からずれるから今は使わない．
-% \usepackage[left=19.05mm,right=19.05mm,top=25.40mm,bottom=25.40mm]{geometry}
 
 % -----フォントの設定-----
 % https://ja.osdn.net/projects/luatex-ja/wiki/LuaTeX-ja%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9
