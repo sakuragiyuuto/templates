@@ -16,7 +16,7 @@
 \usepackage[version=3]{mhchem}                  % 化学式
 \usepackage{siunitx}                            % 単位
 \usepackage{comment}                            % コメント
-\graphicspath{./img/}                           % 画像の PATH
+\graphicspath{./img/}                           % 画像ファイルのパス
 \setcounter{tocdepth}{3}                        % 目次に subsubsection まで表示
 
 % -----余白の設定-----
@@ -127,26 +127,36 @@
 \newcommand*{\refTab}[1]{\tablename~\ref{#1}}
 \newcommand*{\refList}[1]{\lstlistingname~\ref{#1}}
 \newcommand*{\refEq}[1]{式~(\ref{#1})}
-% 引用を上付き文字に
-\usepackage{overcite}
-\renewcommand*{\citeform}[1]{[#1]}
+% 引用を上付き文字 (1 に
+% ftp://ftp.kddilabs.jp/CTAN/macros/latex/contrib/cite/cite.pdf
+% http://www.biwako.shiga-u.ac.jp/sensei/kumazawa/tex/cite.html など
+\usepackage[superscript]{cite}
+\renewcommand\citeleft{}
+\renewcommand\citeright{}
+\renewcommand*\citeform[1]{#1)}
 
 % -----数式中便利な定義-----
 % https://www.library.osaka-u.ac.jp/doc/TA_LaTeX2.pdf
 % https://en.wikibooks.org/wiki/LaTeX/Mathematics など
-\newcommand{\e}{\mathrm{e}}                                % ネイピア数
-\newcommand{\imagi}{\mathrm{i}}                            % 虚数単位（i）
-\newcommand{\imagj}{\mathrm{j}}                            % 虚数単位（j）
-\newcommand{\vDel}{\varDelta}                              % デルタ大文字
-\newcommand{\veps}{\varepsilon}                            % イプシロン小文字
-\newcommand*{\paren}[1]{\left( #1 \right)}                 % () を中身の大きさに合わせる
-\newcommand*{\curly}[1]{\left\{ #1 \right\}}               % {} を中身の大きさに合わせる
-\newcommand*{\bracket}[1]{\left[ #1 \right]}               % [] を中身の大きさに合わせる
-\newcommand*{\absolute}[1]{\left\lvert #1 \right\rvert}    % 絶対値
-\renewcommand{\Re}{\operatorname{Re}}                      % 実部
-\renewcommand{\Im}{\operatorname{Im}}                      % 虚部
-\newcommand*\sfrac[2]{{}^{#1}\!/_{#2}}                     % xfrac パッケージの \sfrac{}{} の代わり
-\renewcommand*\vec[1]{\mathbf{#1}}                         % 矢印ベクトルは使わないので上書き．太字立体．
+\newcommand{\e}{\mathrm{e}}                                      % ネイピア数
+\newcommand{\diffd}{\mathrm{d}}                                  % 微分の d
+\newcommand{\imagi}{\mathrm{i}}                                  % 虚数単位（i）
+\newcommand{\imagj}{\mathrm{j}}                                  % 虚数単位（j）
+\newcommand{\vDel}{\varDelta}                                    % デルタ大文字
+\newcommand{\veps}{\varepsilon}                                  % イプシロン小文字
+\newcommand*{\paren}[1]{\left( #1 \right)}                       % () を中身の大きさに合わせる
+\newcommand*{\curly}[1]{\left\{ #1 \right\}}                     % {} を中身の大きさに合わせる
+\newcommand*{\bracket}[1]{\left[ #1 \right]}                     % [] を中身の大きさに合わせる
+\newcommand*{\absolute}[1]{\left\lvert #1 \right\rvert}          % 絶対値
+\newcommand*{\average}[1]{\left\langle #1 \right\rangle}         % 平均
+\renewcommand{\Re}{\operatorname{Re}}                            % 実部
+\renewcommand{\Im}{\operatorname{Im}}                            % 虚部
+\newcommand*{\Fourier}[1]{\mathcal{F}\left[ #1 \right]}          % フーリエ変換
+\newcommand*{\iFourier}[1]{\mathcal{F}^{-1}\left[ #1 \right]}    % フーリエ逆変換
+\newcommand*{\Laplace}[1]{\mathcal{L}\left[ #1 \right]}          % ラプラス変換
+\newcommand*{\iLaplace}[1]{\mathcal{L}^{-1}\left[ #1 \right]}    % ラプラス逆変換
+\newcommand*\sfrac[2]{{}^{#1}\!/_{#2}}                           % xfrac パッケージの \sfrac{}{} の代わり
+\renewcommand*\vec[1]{\mathbf{#1}}                               % 矢印ベクトルは使わないので上書き．太字立体．
 
 % -----タイトル-----
 \title{Lua\LaTeX テンプレート}
