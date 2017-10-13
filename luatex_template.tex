@@ -158,9 +158,33 @@
 \renewcommand*{\vec}[1]{\mathbf{#1}}                             % 矢印ベクトルは使わないので上書き．太字立体．
 
 % -----タイトル-----
-\title{Lua\LaTeX テンプレート}
-\author{著者}
-\date{\today}
+% \maketitle の再定義
+\makeatletter
+\def\@subtitle{}
+\newcommand{\subtitle}[1]{\def\@subtitle{#1}}
+\def\@institute{}
+\newcommand{\institute}[1]{\def\@institute{#1}}
+\renewcommand{\maketitle}{
+  \begin{mdframed}[roundcorner=10pt]
+    {\small \@date}
+    \vspace{-2.5ex}
+    \begin{center}
+      \textgt{\@subtitle}\\[0.25ex]
+      {\Large \textgt{\@title}}
+    \end{center}
+    \vspace{-3.5ex}
+    \begin{flushright}
+      \@institute \hspace{0.5em} \@author
+    \end{flushright}
+  \end{mdframed}
+}
+\makeatother
+% 実際のタイトルなどはここに記入
+\title{タイトル Title}
+\subtitle{副タイトル Subtitle}
+\author{著者 Author}
+\institute{所属 Institute}
+\date{日付 \today}
 
 % -----プリアンブルここまで-----
 
