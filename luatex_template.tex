@@ -160,9 +160,7 @@
 % -----タイトル-----
 % \maketitle の再定義
 \makeatletter
-\def\@subtitle{}
 \newcommand{\subtitle}[1]{\def\@subtitle{#1}}
-\def\@institute{}
 \newcommand{\institute}[1]{\def\@institute{#1}}
 \renewcommand{\maketitle}{
   \begin{mdframed}[roundcorner=10pt]
@@ -184,7 +182,7 @@
 \subtitle{副タイトル Subtitle}
 \author{著者 Author}
 \institute{所属 Institute}
-\date{日付 \today}
+\date{日付 Date}
 
 % -----プリアンブルここまで-----
 
