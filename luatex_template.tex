@@ -53,9 +53,13 @@
 \setsansfont[Ligatures=TeX]{TeXGyreHeros}
 \setmonofont[Scale=MatchLowercase]{TeXGyreCursor}
 % 日本語
-\usepackage[match,deluxe,expert,bold]{luatexja-fontspec}
-\setmainjfont[BoldFont=IPAexGothic]{IPAexMincho}
-\setsansjfont{IPAexGothic}
+% ipaex -> IPAex Mincho + IPAex Gothic
+% noto-otf -> Noto Serif CJK + Noto Sans CJK
+% \usepackage[match,deluxe,expert,bold]{luatexja-fontspec}
+% \setmainjfont[BoldFont=IPAexGothic]{IPAexMincho}
+% \setsansjfont{IPAexGothic}
+% \usepackage[match,deluxe,expert,bold,ipaex]{luatexja-preset}
+\usepackage[match,deluxe,expert,bold,noto-otf]{luatexja-preset}
 \usepackage{luatexja-otf}
 % 数式
 \usepackage{amsmath}    % 高度な数式用
