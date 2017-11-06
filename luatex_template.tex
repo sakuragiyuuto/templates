@@ -4,8 +4,7 @@
 \usepackage{here}                               % 図表の位置を強制して出力
 \usepackage{afterpage}                          % 残っている図を貼り付ける（\afterpage{\clearpage}）
 \usepackage[subrefformat=parens]{subcaption}    % サブキャプション（図1(a) とか）
-\usepackage{setspace}                           % 行間制御
-\usepackage{ulem}                               % 下線や取り消し線など
+\usepackage{wrapfig}                            % 図に文章を回りこませる
 \usepackage{booktabs}                           % きれいな表（\toprule \midrule \bottomrule）
 \usepackage{multirow}                           % 表で行結合
 \usepackage{multicol}                           % 表で列結合
@@ -21,7 +20,12 @@
 
 % -----余白の設定-----
 % geometry と fancyhdr の順番は http://d.hatena.ne.jp/pureodio/20110212/1297475110 参照
-\usepackage[left=19.05truemm,right=19.05truemm,top=25.40truemm,bottom=25.40truemm]{geometry}
+\usepackage{geometry}
+\geometry{%
+  left=19.05truemm,%
+  right=19.05truemm,%
+  top=25.40truemm,%
+  bottom=25.40truemm}
 
 % -----ヘッダ・フッタの設定-----
 \usepackage{fancyhdr}
@@ -157,10 +161,9 @@
 \newcommand*{\sfrac}[2]{{}^{#1}\!/_{#2}}                         % xfrac パッケージの \sfrac{}{} の代わり
 \newcommand*{\lavec}[1]{\mathbf{#1}}                              % ラテン文字太字ローマン体．
 \newcommand*{\greekrm}[1]{\directlua{                            % newtxmath で，ギリシャ文字をローマン体にする
-gc = [[#1]]
-gc_len = string.len(gc)
-tex.print(string.sub(gc, 1, gc_len - 1) .. 'up')
-}}
+  gc = [[#1]]
+  gc_len = string.len(gc)
+  tex.print(string.sub(gc, 1, gc_len - 1) .. 'up')}}
 \newcommand*{\lgvec}[1]{\boldsymbol{\greekrm{#1}}}                % ギリシャ文字小文字用ベクトル．太字ローマン体．
 \newcommand*{\ugvec}[1]{\boldsymbol{#1}}                          % ギリシャ文字大文字用ベクトル．太字ローマン体．
 
