@@ -159,13 +159,13 @@
 \newcommand*{\Laplace}[1]{\mathcal{L}\left[ #1 \right]}          % ラプラス変換
 \newcommand*{\iLaplace}[1]{\mathcal{L}^{-1}\left[ #1 \right]}    % ラプラス逆変換
 \newcommand*{\sfrac}[2]{{}^{#1}\!/_{#2}}                         % xfrac パッケージの \sfrac{}{} の代わり
-\newcommand*{\lavec}[1]{\mathbf{#1}}                              % ラテン文字太字ローマン体．
+\newcommand*{\lavec}[1]{\mathbf{#1}}                             % ラテン文字太字ローマン体．
 \newcommand*{\greekrm}[1]{\directlua{                            % newtxmath で，ギリシャ文字をローマン体にする
   gc = [[#1]]
   gc_len = string.len(gc)
   tex.print(string.sub(gc, 1, gc_len - 1) .. 'up')}}
-\newcommand*{\lgvec}[1]{\boldsymbol{\greekrm{#1}}}                % ギリシャ文字小文字用ベクトル．太字ローマン体．
-\newcommand*{\ugvec}[1]{\boldsymbol{#1}}                          % ギリシャ文字大文字用ベクトル．太字ローマン体．
+\newcommand*{\grvec}[1]{\boldsymbol{\greekrm{#1}}}                % ギリシャ文字小文字用ベクトル．太字ローマン体．
+\newcommand*{\GRVEC}[1]{\boldsymbol{#1}}                          % ギリシャ文字大文字用ベクトル．太字ローマン体．
 
 % -----タイトル-----
 % \maketitle の再定義
